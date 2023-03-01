@@ -41,11 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void onpausePressed() {
+  void onPausePressed() {
     timer.cancel();
     setState(() {
       isRunning = false;
     });
+  }
+
+  void onRestartPressed() {
+    onPausePressed();
+    totalSeconds = twentyFiveMinutes;
   }
 
   String fomat(int seconds) {
@@ -60,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Flexible(
-            flex: 1,
+            flex: 15,
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
@@ -73,18 +78,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Flexible(
-            flex: 3,
+            flex: 15,
             child: Center(
                 child: IconButton(
                     iconSize: 120,
                     color: Theme.of(context).cardColor,
-                    onPressed: isRunning ? onpausePressed : onStartPressed,
+                    onPressed: isRunning ? onPausePressed : onStartPressed,
                     icon: Icon(isRunning
                         ? Icons.pause_circle_filled_outlined
                         : Icons.play_circle_outline))),
           ),
           Flexible(
-            flex: 1,
+              flex: 10,
+              child: Center(
+                child: IconButton(
+                    iconSize: 60,
+                    color: Theme.of(context).cardColor,
+                    onPressed: onRestartPressed,
+                    icon: const Icon(Icons.restart_alt_sharp)),
+              )),
+          Flexible(
+            flex: 15,
             child: Row(
               children: [
                 Expanded(
